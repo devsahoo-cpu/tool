@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <!-- SEO Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ForgetfulTasks: A beautiful, no-login task manager with customizable themes. Track daily tasks, habits & reminders effortlessly.">
+  <meta name="keywords" content="task manager, to-do list, productivity app, no login, habit tracker, reminder app">
+  <meta name="author" content="ForgetfulTasks">
+  <meta property="og:title" content="ForgetfulTasks - Customizable Task Manager">
+  <meta property="og:description" content="Track tasks without login. Beautiful themes, due dates & reminders.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://forgetfultasks.com">
+  <meta property="og:image" content="https://forgetfultasks.com/og-image.jpg">
+  <meta name="theme-color" content="#4361ee">
+  <link rel="canonical" href="https://forgetfultasks.com">
+  
+  <!-- Favicon & PWA -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="icon-192x192.png">
+  <link rel="manifest" href="manifest.json">
+  
+  <title>ForgetfulTasks | Beautiful & Customizable Task Manager</title>
+  
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ForgetfulTasks",
+      "description": "A beautiful, no-login task manager with customizable themes",
+      "url": "https://forgetfultasks.com",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+  
+  <style>
+    :root {
+      /* Default Light Theme */
+      --primary: #4361ee;
+      --primary-light: #4895ef;
+      --secondary: #3f37c9;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --warning: #f8961e;
+      --danger: #ef233c;
+      
+      --text: #1b263b;
+      --text-light: #6c757d;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --border: #e9ecef;
+      --shadow: rgba(0, 0, 0, 0.1);
+      
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --primary: #4895ef;
+      --primary-light: #4361ee;
+      --secondary: #7209b7;
+      --accent: #f72585;
+      
+      --text: #f8f9fa;
+      --text-light: #adb5bd;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --shadow: rgba(0, 0, 0, 0.3);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      min-height: 100vh;
+      transition: var(--transition);
+    }
+    
+    /* Glassmorphism Header */
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 100;
+    }
+    
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+    
+    /* New Layout Structure */
+    .app-wrapper {
+      display: flex;
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      gap: 1.5rem;
+    }
+    
+    .main-content {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .sidebar {
+      width: 250px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 2rem;
+      align-self: flex-start;
+    }
+    
+    /* Task Card (Glassmorphism) */
+    .main-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 8px 32px var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 2rem;
+    }
+    
+    /* Ad Containers */
+    .ad-container {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: var(--transition);
+    }
+    
+    .ad-container:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .ad-placeholder {
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: calc(var(--radius) - 4px);
+    }
+    
+    .ad-label {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+    }
+    
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .stat i {
+      font-size: 1.1rem;
+    }
+    
+    /* Progress Bar */
+    .progress-container {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+    
+    /* Task Input */
+    .task-input-container {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .task-input {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .task-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    
+    .add-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .add-btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    
+    /* Task List */
+    .task-list {
+      list-style: none;
+    }
+    
+    .task-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius);
+      transition: var(--transition);
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .task-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Checkbox */
+    .task-checkbox {
+      appearance: none;
+      width: 1.4em;
+      height: 1.4em;
+      border: 2px solid var(--text-light);
+      border-radius: 50%;
+      margin-right: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .task-checkbox:checked {
+      background: var(--success);
+      border-color: var(--success);
+    }
+    
+    .task-checkbox:checked::after {
+      content: "✓";
+      color: white;
+      display: block;
+      text-align: center;
+      line-height: 1.2;
+    }
+    
+    /* Task Text */
+    .task-text {
+      flex: 1;
+      word-break: break-word;
+    }
+    
+    .completed {
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+    
+    /* Task Actions */
+    .task-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .action-btn {
+      background: transparent;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+    
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+    
+    .delete-btn:hover {
+      color: var(--danger);
+    }
+    
+    .edit-btn:hover {
+      color: var(--warning);
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
+    
+    /* Reset Button */
+    .reset-btn {
+      background: var(--danger);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.8rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: block;
+      margin: 2rem auto 0;
+    }
+    
+    .reset-btn:hover {
+      background: #d90429;
+      transform: translateY(-2px);
+    }
+    
+    /* Theme Switcher */
+    .theme-switcher {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--card-bg);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px var(--shadow);
+      cursor: pointer;
+      z-index: 10;
+    }
+    
+    /* Color Picker (Custom Theme) */
+    .color-picker {
+      position: fixed;
+      bottom: 5rem;
+      right: 1.5rem;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: 0 4px 12px var(--shadow);
+      display: none;
+      z-index: 10;
+    }
+    
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 0.25rem;
+      cursor: pointer;
+      border: 2px solid var(--border);
+    }
+    
+    /* Ad Toggle */
+    .ad-toggle {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      box-shadow: 0 4px 12px var(--shadow);
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 900px) {
+      .app-wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      .ad-container {
+        margin-bottom: 0;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .sidebar {
+        grid-template-columns: 1fr;
+      }
+      
+      .task-input-container {
+        flex-direction: column;
+      }
+      
+      .add-btn {
+        padding: 0.8rem;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>ForgetfulTasks</h1>
+    <p>Track your daily tasks with style</p>
+  </header>
+  
+  <!-- Main App -->
+  <div class="app-wrapper">
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="main-card">
+        <!-- Date Display -->
+        <div class="date-display" id="dateDisplay"></div>
+        
+        <!-- Stats -->
+        <div class="stats-bar">
+          <div class="stat">
+            <i class="fas fa-tasks"></i>
+            <span id="totalTasks">0</span> tasks
+          </div>
+          <div class="stat">
+            <i class="fas fa-check-circle"></i>
+            <span id="completedTasks">0</span> done
+          </div>
+          <div class="stat">
+            <i class="fas fa-percentage"></i>
+            <span id="completionRate">0</span>%
+          </div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <!-- Task Input -->
+        <div class="task-input-container">
+          <input 
+            type="text" 
+            class="task-input" 
+            id="newTaskInput" 
+            placeholder="What do you need to do today?" 
+            autofocus
+            aria-label="Add new task"
+          >
+          <button class="add-btn" id="addTaskBtn">
+            <i class="fas fa-plus"></i>
+            <span>Add</span>
+          </button>
+        </div>
+        
+        <!-- Task List -->
+        <ul class="task-list" id="taskList"></ul>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+          <i class="fas fa-cloud"></i>
+          <h3>No tasks yet</h3>
+          <p>Add your first task to get started</p>
+        </div>
+      </div>
+      
+      <!-- Reset Button -->
+      <button class="reset-btn" id="resetBtn">
+        <i class="fas fa-trash-alt"></i> Clear All Tasks
+      </button>
+    </div>
+    
+    <!-- Sidebar with Ads -->
+    <div class="sidebar" id="adSidebar">
+      <!-- AdSense Ad Slot 1 -->
+      <div class="ad-container">
+        <div class="ad-placeholder" id="adTop">
+          <!-- AdSense Ad Code - Replace with your own -->
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+               data-ad-slot="1234567890"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+        <span class="ad-label">Your support helps keep us running</span>
+      </div>
+      
+      <!-- AdSense Ad Slot 2 -->
+      <div class="ad-container">
+        <div class="ad-placeholder" id="adBottom">
+          <!-- AdSense Ad Code - Replace with your own -->
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+               data-ad-slot="0987654321"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+        <span class="ad-label">Premium features available</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="currentYear"></span> ForgetfulTasks | Your data stays private</p>
+  </footer>
+  
+  <!-- Theme Switcher -->
+  <div class="theme-switcher" id="themeSwitcher">
+    <i class="fas fa-moon"></i>
+  </div>
+  
+  <!-- Ad Toggle -->
+  <button class="ad-toggle" id="adToggle">
+    <i class="fas fa-ad"></i> Hide Ads
+  </button>
+  
+  <!-- Color Picker -->
+  <div class="color-picker" id="colorPicker">
+    <h4>Pick a Theme</h4>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+      <div class="color-option" style="background: #4361ee;" data-theme="default"></div>
+      <div class="color-option" style="background: #f72585;" data-theme="pink"></div>
+      <div class="color-option" style="background: #4cc9f0;" data-theme="teal"></div>
+      <div class="color-option" style="background: #7209b7;" data-theme="purple"></div>
+      <div class="color-option" style="background: #f8961e;" data-theme="orange"></div>
+      <div class="color-option" style="background: #2ec4b6;" data-theme="mint"></div>
+    </div>
+  </div>
+  
+  <!-- JavaScript -->
+  <script>
+    // DOM Elements
+    const newTaskInput = document.getElementById('newTaskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+    const dateDisplay = document.getElementById('dateDisplay');
+    const resetBtn = document.getElementById('resetBtn');
+    const emptyState = document.getElementById('emptyState');
+    const totalTasksEl = document.getElementById('totalTasks');
+    const completedTasksEl = document.getElementById('completedTasks');
+    const completionRateEl = document.getElementById('completionRate');
+    const progressBar = document.getElementById('progressBar');
+    const currentYear = document.getElementById('currentYear');
+    const themeSwitcher = document.getElementById('themeSwitcher');
+    const colorPicker = document.getElementById('colorPicker');
+    const adSidebar = document.getElementById('adSidebar');
+    const adToggle = document.getElementById('adToggle');
+    const adTop = document.getElementById('adTop');
+    const adBottom = document.getElementById('adBottom');
+    
+    // Set current year
+    currentYear.textContent = new Date().getFullYear();
+    
+    // Initialize with today's date
+    const today = new Date().toISOString().split('T')[0];
+    dateDisplay.textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric'
+    });
+    
+    // Ad Management
+    let adsVisible = true;
+    
+    function toggleAds() {
+      adsVisible = !adsVisible;
+      adSidebar.style.display = adsVisible ? 'block' : 'none';
+      adToggle.innerHTML = adsVisible ? 
+        '<i class="fas fa-ad"></i> Hide Ads' : 
+        '<i class="fas fa-ad"></i> Show Ads';
+      localStorage.setItem('adsVisible', adsVisible);
+      
+      // Refresh AdSense ads when shown
+      if (adsVisible && typeof adsbygoogle !== 'undefined') {
+        setTimeout(() => {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        }, 200);
+      }
+    }
+    
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTasks();
+      setupNotifications();
+      
+      // Load ad preference
+      const savedAdPref = localStorage.getItem('adsVisible');
+      if (savedAdPref !== null) {
+        adsVisible = savedAdPref === 'true';
+        toggleAds(); // Set initial state
+      }
+    });
+    
+    addTaskBtn.addEventListener('click', addTask);
+    newTaskInput.addEventListener('keypress', (e) => e.key === 'Enter' && addTask());
+    resetBtn.addEventListener('click', resetAllTasks);
+    adToggle.addEventListener('click', toggleAds);
+    
+    // Theme Toggle
+    themeSwitcher.addEventListener('click', toggleTheme);
+    document.querySelectorAll('.color-option').forEach(option => {
+      option.addEventListener('click', () => setCustomTheme(option.dataset.theme));
+    });
+    
+    // Task Management Functions
+    function addTask() {
+      const taskText = newTaskInput.value.trim();
+      if (!taskText) return;
+      
+      const tasks = getTasks();
+      const newTask = {
+        id: Date.now(),
+        text: taskText,
+        completed: false,
+        createdAt: new Date().toISOString()
+      };
+      
+      tasks.push(newTask);
+      saveTasks(tasks);
+      renderTask(newTask);
+      updateStats();
+      
+      newTaskInput.value = '';
+      newTaskInput.focus();
+      emptyState.style.display = 'none';
+    }
+    
+    function getTasks() {
+      return JSON.parse(localStorage.getItem(`tasks_${today}`)) || [];
+    }
+    
+    function saveTasks(tasks) {
+      localStorage.setItem(`tasks_${today}`, JSON.stringify(tasks));
+    }
+    
+    function loadTasks() {
+      const tasks = getTasks();
+      taskList.innerHTML = '';
+      
+      if (tasks.length === 0) {
+        emptyState.style.display = 'block';
+      } else {
+        emptyState.style.display = 'none';
+        tasks.forEach(task => renderTask(task));
+      }
+      
+      updateStats();
+    }
+    
+    function renderTask(task) {
+      const li = document.createElement('li');
+      li.className = 'task-item';
+      li.dataset.id = task.id;
+      
+      li.innerHTML = `
+        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+        <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
+        <div class="task-actions">
+          <button class="action-btn edit-btn" aria-label="Edit task">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="action-btn delete-btn" aria-label="Delete task">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      `;
+      
+      const checkbox = li.querySelector('.task-checkbox');
+      checkbox.addEventListener('change', () => toggleTaskCompletion(task.id, checkbox.checked));
+      
+      const deleteBtn = li.querySelector('.delete-btn');
+      deleteBtn.addEventListener('click', () => deleteTask(task.id));
+      
+      const editBtn = li.querySelector('.edit-btn');
+      editBtn.addEventListener('click', () => editTask(task.id));
+      
+      taskList.appendChild(li);
+    }
+    
+    function toggleTaskCompletion(taskId, isCompleted) {
+      const tasks = getTasks();
+      const task = tasks.find(t => t.id == taskId);
+      if (!task) return;
+      
+      task.completed = isCompleted;
+      saveTasks(tasks);
+      
+      const taskText = document.querySelector(`.task-item[data-id="${taskId}"] .task-text`);
+      if (taskText) taskText.classList.toggle('completed', isCompleted);
+      
+      updateStats();
+    }
+    
+    function deleteTask(taskId) {
+      if (!confirm('Delete this task?')) return;
+      
+      const tasks = getTasks().filter(t => t.id != taskId);
+      saveTasks(tasks);
+      document.querySelector(`.task-item[data-id="${taskId}"]`)?.remove();
+      
+      if (tasks.length === 0) emptyState.style.display = 'block';
+      updateStats();
+    }
+    
+    function editTask(taskId) {
+      const tasks = getTasks();
+      const task = tasks.find(t => t.id == taskId);
+      if (!task) return;
+      
+      const taskEl = document.querySelector(`.task-item[data-id="${taskId}"]`);
+      const taskTextEl = taskEl.querySelector('.task-text');
+      const currentText = task.text;
+      
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = currentText;
+      input.className = 'task-input';
+      input.style.margin = '0';
+      input.style.width = '100%';
+      
+      taskTextEl.replaceWith(input);
+      input.focus();
+      
+      function saveEdit() {
+        const newText = input.value.trim();
+        if (newText && newText !== currentText) {
+          task.text = newText;
+          saveTasks(tasks);
+          
+          const newTextEl = document.createElement('span');
+          newTextEl.className = `task-text ${task.completed ? 'completed' : ''}`;
+          newTextEl.textContent = newText;
+          input.replaceWith(newTextEl);
+        } else {
+          const originalTextEl = document.createElement('span');
+          originalTextEl.className = `task-text ${task.completed ? 'completed' : ''}`;
+          originalTextEl.textContent = currentText;
+          input.replaceWith(originalTextEl);
+        }
+      }
+      
+      input.addEventListener('blur', saveEdit);
+      input.addEventListener('keypress', (e) => e.key === 'Enter' && saveEdit());
+    }
+    
+    function resetAllTasks() {
+      if (!confirm('Delete ALL tasks for today?')) return;
+      
+      localStorage.removeItem(`tasks_${today}`);
+      taskList.innerHTML = '';
+      emptyState.style.display = 'block';
+      updateStats();
+    }
+    
+    function updateStats() {
+      const tasks = getTasks();
+      const total = tasks.length;
+      const completed = tasks.filter(t => t.completed).length;
+      const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+      
+      totalTasksEl.textContent = total;
+      completedTasksEl.textContent = completed;
+      completionRateEl.textContent = rate;
+      progressBar.style.width = `${rate}%`;
+      
+      // Change progress bar color based on completion
+      if (rate < 30) {
+        progressBar.style.background = 'linear-gradient(90deg, var(--danger), #ef233c)';
+      } else if (rate < 70) {
+        progressBar.style.background = 'linear-gradient(90deg, var(--warning), #f8961e)';
+      } else {
+        progressBar.style.background = 'linear-gradient(90deg, var(--success), #4cc9f0)';
+      }
+    }
+    
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      themeSwitcher.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      localStorage.setItem('theme', newTheme);
+    }
+    
+    function setCustomTheme(theme) {
+      const root = document.documentElement;
+      
+      switch (theme) {
+        case 'pink':
+          root.style.setProperty('--primary', '#f72585');
+          root.style.setProperty('--primary-light', '#ff0676');
+          root.style.setProperty('--secondary', '#b5179e');
+          break;
+        case 'teal':
+          root.style.setProperty('--primary', '#4cc9f0');
+          root.style.setProperty('--primary-light', '#3a86ff');
+          root.style.setProperty('--secondary', '#4895ef');
+          break;
+        case 'purple':
+          root.style.setProperty('--primary', '#7209b7');
+          root.style.setProperty('--primary-light', '#560bad');
+          root.style.setProperty('--secondary', '#480ca8');
+          break;
+        case 'orange':
+          root.style.setProperty('--primary', '#f8961e');
+          root.style.setProperty('--primary-light', '#f3722c');
+          root.style.setProperty('--secondary', '#f9844a');
+          break;
+        case 'mint':
+          root.style.setProperty('--primary', '#2ec4b6');
+          root.style.setProperty('--primary-light', '#1abc9c');
+          root.style.setProperty('--secondary', '#16a085');
+          break;
+        default: // Default blue
+          root.style.setProperty('--primary', '#4361ee');
+          root.style.setProperty('--primary-light', '#4895ef');
+          root.style.setProperty('--secondary', '#3f37c9');
+      }
+      
+      localStorage.setItem('colorTheme', theme);
+      colorPicker.style.display = 'none';
+    }
+    
+    function setupNotifications() {
+      if ("Notification" in window && Notification.permission !== "denied") {
+        Notification.requestPermission().then(perm => {
+          if (perm === "granted") {
+            scheduleNotification(9, 0, "🌞 Good morning! Check your tasks for today.");
+            scheduleNotification(18, 0, "🌇 Evening reminder: Complete pending tasks!");
+          }
+        });
+      }
+    }
+    
+    function scheduleNotification(hours, minutes, message) {
+      const now = new Date();
+      const trigger = new Date(now);
+      trigger.setHours(hours, minutes, 0, 0);
+      if (now > trigger) trigger.setDate(trigger.getDate() + 1);
+      
+      setTimeout(() => {
+        new Notification("ForgetfulTasks Reminder", { body: message });
+      }, trigger - now);
+    }
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    const savedColorTheme = localStorage.getItem('colorTheme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeSwitcher.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+    if (savedColorTheme) setCustomTheme(savedColorTheme);
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <!-- SEO Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ForgetfulTasks: A beautiful, no-login task manager with customizable themes. Track daily tasks, habits & reminders effortlessly.">
+  <meta name="keywords" content="task manager, to-do list, productivity app, no login, habit tracker, reminder app">
+  <meta name="author" content="ForgetfulTasks">
+  <meta property="og:title" content="ForgetfulTasks - Customizable Task Manager">
+  <meta property="og:description" content="Track tasks without login. Beautiful themes, due dates & reminders.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://forgetfultasks.com">
+  <meta property="og:image" content="https://forgetfultasks.com/og-image.jpg">
+  <meta name="theme-color" content="#4361ee">
+  <link rel="canonical" href="https://forgetfultasks.com">
+  
+  <!-- Favicon & PWA -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="icon-192x192.png">
+  <link rel="manifest" href="manifest.json">
+  
+  <title>ForgetfulTasks | Beautiful & Customizable Task Manager</title>
+  
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ForgetfulTasks",
+      "description": "A beautiful, no-login task manager with customizable themes",
+      "url": "https://forgetfultasks.com",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+  
+  <style>
+    :root {
+      /* Default Light Theme */
+      --primary: #4361ee;
+      --primary-light: #4895ef;
+      --secondary: #3f37c9;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --warning: #f8961e;
+      --danger: #ef233c;
+      
+      --text: #1b263b;
+      --text-light: #6c757d;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --border: #e9ecef;
+      --shadow: rgba(0, 0, 0, 0.1);
+      
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --primary: #4895ef;
+      --primary-light: #4361ee;
+      --secondary: #7209b7;
+      --accent: #f72585;
+      
+      --text: #f8f9fa;
+      --text-light: #adb5bd;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --shadow: rgba(0, 0, 0, 0.3);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      min-height: 100vh;
+      transition: var(--transition);
+    }
+    
+    /* Glassmorphism Header */
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 100;
+    }
+    
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+    
+    /* New Layout Structure */
+    .app-wrapper {
+      display: flex;
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      gap: 1.5rem;
+    }
+    
+    .main-content {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .sidebar {
+      width: 250px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 2rem;
+      align-self: flex-start;
+    }
+    
+    /* Task Card (Glassmorphism) */
+    .main-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 8px 32px var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 2rem;
+    }
+    
+    /* Ad Containers */
+    .ad-container {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: var(--transition);
+    }
+    
+    .ad-container:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .ad-placeholder {
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: calc(var(--radius) - 4px);
+    }
+    
+    .ad-label {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+    }
+    
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .stat i {
+      font-size: 1.1rem;
+    }
+    
+    /* Progress Bar */
+    .progress-container {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+    
+    /* Task Input */
+    .task-input-container {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .task-input {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .task-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    
+    .add-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .add-btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    
+    /* Task List */
+    .task-list {
+      list-style: none;
+    }
+    
+    .task-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius);
+      transition: var(--transition);
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .task-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Checkbox */
+    .task-checkbox {
+      appearance: none;
+      width: 1.4em;
+      height: 1.4em;
+      border: 2px solid var(--text-light);
+      border-radius: 50%;
+      margin-right: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .task-checkbox:checked {
+      background: var(--success);
+      border-color: var(--success);
+    }
+    
+    .task-checkbox:checked::after {
+      content: "✓";
+      color: white;
+      display: block;
+      text-align: center;
+      line-height: 1.2;
+    }
+    
+    /* Task Text */
+    .task-text {
+      flex: 1;
+      word-break: break-word;
+    }
+    
+    .completed {
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+    
+    /* Task Actions */
+    .task-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .action-btn {
+      background: transparent;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+    
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+    
+    .delete-btn:hover {
+      color: var(--danger);
+    }
+    
+    .edit-btn:hover {
+      color: var(--warning);
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
+    
+    /* Reset Button */
+    .reset-btn {
+      background: var(--danger);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.8rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: block;
+      margin: 2rem auto 0;
+    }
+    
+    .reset-btn:hover {
+      background: #d90429;
+      transform: translateY(-2px);
+    }
+    
+    /* Theme Switcher */
+    .theme-switcher {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--card-bg);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px var(--shadow);
+      cursor: pointer;
+      z-index: 10;
+    }
+    
+    /* Color Picker (Custom Theme) */
+    .color-picker {
+      position: fixed;
+      bottom: 5rem;
+      right: 1.5rem;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: 0 4px 12px var(--shadow);
+      display: none;
+      z-index: 10;
+    }
+    
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 0.25rem;
+      cursor: pointer;
+      border: 2px solid var(--border);
+    }
+    
+    /* Ad Toggle */
+    .ad-toggle {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      box-shadow: 0 4px 12px var(--shadow);
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 900px) {
+      .app-wrapper {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      .ad-container {
+        margin-bottom: 0;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .sidebar {
+        grid-template-columns: 1fr;
+      }
+      
+      .task-input-container {
+        flex-direction: column;
+      }
+      
+      .add-btn {
+        padding: 0.8rem;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>ForgetfulTasks</h1>
+    <p>Track your daily tasks with style</p>
+  </header>
+  
+  <!-- Main App -->
+  <div class="app-wrapper">
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="main-card">
+        <!-- Date Display -->
+        <div class="date-display" id="dateDisplay"></div>
+        
+        <!-- Stats -->
+        <div class="stats-bar">
+          <div class="stat">
+            <i class="fas fa-tasks"></i>
+            <span id="totalTasks">0</span> tasks
+          </div>
+          <div class="stat">
+            <i class="fas fa-check-circle"></i>
+            <span id="completedTasks">0</span> done
+          </div>
+          <div class="stat">
+            <i class="fas fa-percentage"></i>
+            <span id="completionRate">0</span>%
+          </div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <!-- Task Input -->
+        <div class="task-input-container">
+          <input 
+            type="text" 
+            class="task-input" 
+            id="newTaskInput" 
+            placeholder="What do you need to do today?" 
+            autofocus
+            aria-label="Add new task"
+          >
+          <button class="add-btn" id="addTaskBtn">
+            <i class="fas fa-plus"></i>
+            <span>Add</span>
+          </button>
+        </div>
+        
+        <!-- Task List -->
+        <ul class="task-list" id="taskList"></ul>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+          <i class="fas fa-cloud"></i>
+          <h3>No tasks yet</h3>
+          <p>Add your first task to get started</p>
+        </div>
+      </div>
+      
+      <!-- Reset Button -->
+      <button class="reset-btn" id="resetBtn">
+        <i class="fas fa-trash-alt"></i> Clear All Tasks
+      </button>
+    </div>
+    
+    <!-- Sidebar with Ads -->
+    <div class="sidebar" id="adSidebar">
+      <!-- AdSense Ad Slot 1 -->
+      <div class="ad-container">
+        <div class="ad-placeholder" id="adTop">
+          <!-- AdSense Ad Code - Replace with your own -->
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+               data-ad-slot="1234567890"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+        <span class="ad-label">Your support helps keep us running</span>
+      </div>
+      
+      <!-- AdSense Ad Slot 2 -->
+      <div class="ad-container">
+        <div class="ad-placeholder" id="adBottom">
+          <!-- AdSense Ad Code - Replace with your own -->
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+               data-ad-slot="0987654321"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+        <span class="ad-label">Premium features available</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="currentYear"></span> ForgetfulTasks | Your data stays private</p>
+  </footer>
+  
+  <!-- Theme Switcher -->
+  <div class="theme-switcher" id="themeSwitcher">
+    <i class="fas fa-moon"></i>
+  </div>
+  
+  <!-- Ad Toggle -->
+  <button class="ad-toggle" id="adToggle">
+    <i class="fas fa-ad"></i> Hide Ads
+  </button>
+  
+  <!-- Color Picker -->
+  <div class="color-picker" id="colorPicker">
+    <h4>Pick a Theme</h4>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+      <div class="color-option" style="background: #4361ee;" data-theme="default"></div>
+      <div class="color-option" style="background: #f72585;" data-theme="pink"></div>
+      <div class="color-option" style="background: #4cc9f0;" data-theme="teal"></div>
+      <div class="color-option" style="background: #7209b7;" data-theme="purple"></div>
+      <div class="color-option" style="background: #f8961e;" data-theme="orange"></div>
+      <div class="color-option" style="background: #2ec4b6;" data-theme="mint"></div>
+    </div>
+  </div>
+  
+  <!-- JavaScript -->
+  <script>
+    // DOM Elements
+    const newTaskInput = document.getElementById('newTaskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+    const dateDisplay = document.getElementById('dateDisplay');
+    const resetBtn = document.getElementById('resetBtn');
+    const emptyState = document.getElementById('emptyState');
+    const totalTasksEl = document.getElementById('totalTasks');
+    const completedTasksEl = document.getElementById('completedTasks');
+    const completionRateEl = document.getElementById('completionRate');
+    const progressBar = document.getElementById('progressBar');
+    const currentYear = document.getElementById('currentYear');
+    const themeSwitcher = document.getElementById('themeSwitcher');
+    const colorPicker = document.getElementById('colorPicker');
+    const adSidebar = document.getElementById('adSidebar');
+    const adToggle = document.getElementById('adToggle');
+    const adTop = document.getElementById('adTop');
+    const adBottom = document.getElementById('adBottom');
+    
+    // Set current year
+    currentYear.textContent = new Date().getFullYear();
+    
+    // Initialize with today's date
+    const today = new Date().toISOString().split('T')[0];
+    dateDisplay.textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric'
+    });
+    
+    // Ad Management
+    let adsVisible = true;
+    
+    function toggleAds() {
+      adsVisible = !adsVisible;
+      adSidebar.style.display = adsVisible ? 'block' : 'none';
+      adToggle.innerHTML = adsVisible ? 
+        '<i class="fas fa-ad"></i> Hide Ads' : 
+        '<i class="fas fa-ad"></i> Show Ads';
+      localStorage.setItem('adsVisible', adsVisible);
+      
+      // Refresh AdSense ads when shown
+      if (adsVisible && typeof adsbygoogle !== 'undefined') {
+        setTimeout(() => {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        }, 200);
+      }
+    }
+    
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTasks();
+      setupNotifications();
+      
+      // Load ad preference
+      const savedAdPref = localStorage.getItem('adsVisible');
+      if (savedAdPref !== null) {
+        adsVisible = savedAdPref === 'true';
+        toggleAds(); // Set initial state
+      }
+    });
+    
+    addTaskBtn.addEventListener('click', addTask);
+    newTaskInput.addEventListener('keypress', (e) => e.key === 'Enter' && addTask());
+    resetBtn.addEventListener('click', resetAllTasks);
+    adToggle.addEventListener('click', toggleAds);
+    
+    // Theme Toggle
+    themeSwitcher.addEventListener('click', toggleTheme);
+    document.querySelectorAll('.color-option').forEach(option => {
+      option.addEventListener('click', () => setCustomTheme(option.dataset.theme));
+    });
+    
+    // Task Management Functions
+    function addTask() {
+      const taskText = newTaskInput.value.trim();
+      if (!taskText) return;
+      
+      const tasks = getTasks();
+      const newTask = {
+        id: Date.now(),
+        text: taskText,
+        completed: false,
+        createdAt: new Date().toISOString()
+      };
+      
+      tasks.push(newTask);
+      saveTasks(tasks);
+      renderTask(newTask);
+      updateStats();
+      
+      newTaskInput.value = '';
+      newTaskInput.focus();
+      emptyState.style.display = 'none';
+    }
+    
+    function getTasks() {
+      return JSON.parse(localStorage.getItem(`tasks_${today}`)) || [];
+    }
+    
+    function saveTasks(tasks) {
+      localStorage.setItem(`tasks_${today}`, JSON.stringify(tasks));
+    }
+    
+    function loadTasks() {
+      const tasks = getTasks();
+      taskList.innerHTML = '';
+      
+      if (tasks.length === 0) {
+        emptyState.style.display = 'block';
+      } else {
+        emptyState.style.display = 'none';
+        tasks.forEach(task => renderTask(task));
+      }
+      
+      updateStats();
+    }
+    
+    function renderTask(task) {
+      const li = document.createElement('li');
+      li.className = 'task-item';
+      li.dataset.id = task.id;
+      
+      li.innerHTML = `
+        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+        <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
+        <div class="task-actions">
+          <button class="action-btn edit-btn" aria-label="Edit task">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="action-btn delete-btn" aria-label="Delete task">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      `;
+      
+      const checkbox = li.querySelector('.task-checkbox');
+      checkbox.addEventListener('change', () => toggleTaskCompletion(task.id, checkbox.checked));
+      
+      const deleteBtn = li.querySelector('.delete-btn');
+      deleteBtn.addEventListener('click', () => deleteTask(task.id));
+      
+      const editBtn = li.querySelector('.edit-btn');
+      editBtn.addEventListener('click', () => editTask(task.id));
+      
+      taskList.appendChild(li);
+    }
+    
+    function toggleTaskCompletion(taskId, isCompleted) {
+      const tasks = getTasks();
+      const task = tasks.find(t => t.id == taskId);
+      if (!task) return;
+      
+      task.completed = isCompleted;
+      saveTasks(tasks);
+      
+      const taskText = document.querySelector(`.task-item[data-id="${taskId}"] .task-text`);
+      if (taskText) taskText.classList.toggle('completed', isCompleted);
+      
+      updateStats();
+    }
+    
+    function deleteTask(taskId) {
+      if (!confirm('Delete this task?')) return;
+      
+      const tasks = getTasks().filter(t => t.id != taskId);
+      saveTasks(tasks);
+      document.querySelector(`.task-item[data-id="${taskId}"]`)?.remove();
+      
+      if (tasks.length === 0) emptyState.style.display = 'block';
+      updateStats();
+    }
+    
+    function editTask(taskId) {
+      const tasks = getTasks();
+      const task = tasks.find(t => t.id == taskId);
+      if (!task) return;
+      
+      const taskEl = document.querySelector(`.task-item[data-id="${taskId}"]`);
+      const taskTextEl = taskEl.querySelector('.task-text');
+      const currentText = task.text;
+      
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = currentText;
+      input.className = 'task-input';
+      input.style.margin = '0';
+      input.style.width = '100%';
+      
+      taskTextEl.replaceWith(input);
+      input.focus();
+      
+      function saveEdit() {
+        const newText = input.value.trim();
+        if (newText && newText !== currentText) {
+          task.text = newText;
+          saveTasks(tasks);
+          
+          const newTextEl = document.createElement('span');
+          newTextEl.className = `task-text ${task.completed ? 'completed' : ''}`;
+          newTextEl.textContent = newText;
+          input.replaceWith(newTextEl);
+        } else {
+          const originalTextEl = document.createElement('span');
+          originalTextEl.className = `task-text ${task.completed ? 'completed' : ''}`;
+          originalTextEl.textContent = currentText;
+          input.replaceWith(originalTextEl);
+        }
+      }
+      
+      input.addEventListener('blur', saveEdit);
+      input.addEventListener('keypress', (e) => e.key === 'Enter' && saveEdit());
+    }
+    
+    function resetAllTasks() {
+      if (!confirm('Delete ALL tasks for today?')) return;
+      
+      localStorage.removeItem(`tasks_${today}`);
+      taskList.innerHTML = '';
+      emptyState.style.display = 'block';
+      updateStats();
+    }
+    
+    function updateStats() {
+      const tasks = getTasks();
+      const total = tasks.length;
+      const completed = tasks.filter(t => t.completed).length;
+      const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+      
+      totalTasksEl.textContent = total;
+      completedTasksEl.textContent = completed;
+      completionRateEl.textContent = rate;
+      progressBar.style.width = `${rate}%`;
+      
+      // Change progress bar color based on completion
+      if (rate < 30) {
+        progressBar.style.background = 'linear-gradient(90deg, var(--danger), #ef233c)';
+      } else if (rate < 70) {
+        progressBar.style.background = 'linear-gradient(90deg, var(--warning), #f8961e)';
+      } else {
+        progressBar.style.background = 'linear-gradient(90deg, var(--success), #4cc9f0)';
+      }
+    }
+    
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      themeSwitcher.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      localStorage.setItem('theme', newTheme);
+    }
+    
+    function setCustomTheme(theme) {
+      const root = document.documentElement;
+      
+      switch (theme) {
+        case 'pink':
+          root.style.setProperty('--primary', '#f72585');
+          root.style.setProperty('--primary-light', '#ff0676');
+          root.style.setProperty('--secondary', '#b5179e');
+          break;
+        case 'teal':
+          root.style.setProperty('--primary', '#4cc9f0');
+          root.style.setProperty('--primary-light', '#3a86ff');
+          root.style.setProperty('--secondary', '#4895ef');
+          break;
+        case 'purple':
+          root.style.setProperty('--primary', '#7209b7');
+          root.style.setProperty('--primary-light', '#560bad');
+          root.style.setProperty('--secondary', '#480ca8');
+          break;
+        case 'orange':
+          root.style.setProperty('--primary', '#f8961e');
+          root.style.setProperty('--primary-light', '#f3722c');
+          root.style.setProperty('--secondary', '#f9844a');
+          break;
+        case 'mint':
+          root.style.setProperty('--primary', '#2ec4b6');
+          root.style.setProperty('--primary-light', '#1abc9c');
+          root.style.setProperty('--secondary', '#16a085');
+          break;
+        default: // Default blue
+          root.style.setProperty('--primary', '#4361ee');
+          root.style.setProperty('--primary-light', '#4895ef');
+          root.style.setProperty('--secondary', '#3f37c9');
+      }
+      
+      localStorage.setItem('colorTheme', theme);
+      colorPicker.style.display = 'none';
+    }
+    
+    function setupNotifications() {
+      if ("Notification" in window && Notification.permission !== "denied") {
+        Notification.requestPermission().then(perm => {
+          if (perm === "granted") {
+            scheduleNotification(9, 0, "🌞 Good morning! Check your tasks for today.");
+            scheduleNotification(18, 0, "🌇 Evening reminder: Complete pending tasks!");
+          }
+        });
+      }
+    }
+    
+    function scheduleNotification(hours, minutes, message) {
+      const now = new Date();
+      const trigger = new Date(now);
+      trigger.setHours(hours, minutes, 0, 0);
+      if (now > trigger) trigger.setDate(trigger.getDate() + 1);
+      
+      setTimeout(() => {
+        new Notification("ForgetfulTasks Reminder", { body: message });
+      }, trigger - now);
+    }
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    const savedColorTheme = localStorage.getItem('colorTheme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeSwitcher.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+    if (savedColorTheme) setCustomTheme(savedColorTheme);
+  </script>
+</body>
+</html>
